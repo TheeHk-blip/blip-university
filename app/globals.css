@@ -24,3 +24,41 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.navbar {
+  border-bottom: .2px solid gray;
+  position: sticky;
+  top: 0;
+  position:-webkit-sticky;
+  backdrop-filter: blur(45px);
+}
+
+.input{
+  border: .5px solid gray;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 5px 0px;
+  height: 45px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:hover {
+  border: 1.5px solid blue;
+}
+
+.login {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 5px 0px;
+  height: 45px;
+  width: 100px;
+  cursor: pointer;  
+}
+
+.login:hover { 
+  border:2px solid blue;
+}
