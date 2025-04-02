@@ -12,7 +12,7 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
  
   const data = (await params).courseInfo;
   const courseInfo = decodeURIComponent(data);
-  const response = await fetch("http://localhost:3000/api/course");
+  const response = await fetch(process.env.NODE_ENV === "production" ? process.env.NEXT_APP_API_PRODUCTION! : process.env.NEXT_APP_API_DEVELOPMENT!,);
   const courseDetails = await response.json();
 
   console.log("courseDetails", courseDetails);

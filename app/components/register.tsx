@@ -8,7 +8,7 @@ interface RegisterProps {
   minRequirements: string;
 }
 
-export default function Register({ courseTitle, minRequirements }: RegisterProps) {
+export default function Register({ minRequirements }: RegisterProps) {
   console.log("minRequirements", minRequirements);
     const [firstName,setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -66,7 +66,7 @@ export default function Register({ courseTitle, minRequirements }: RegisterProps
         formData.append("phoneNo", `${phoneNo}`);
         formData.append("emailAddress", emailAddress);
         formData.append("meanGrade", meanGrade);
-        const response = await fetch(`http://localhost:3000/api/student/register?courseTitle=${courseTitle}`,{
+        const response = await fetch(process.env.NODE_ENV === "production" ? process.env.NEXT_APP_REGISTRATION_URL_PRODUCTION! : process.env.NEXT_APP_REGISTRATION_URL_DEVELOPMENT!,{
           method: "POST",
           body: formData,
         });
