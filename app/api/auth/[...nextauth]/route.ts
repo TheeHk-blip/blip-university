@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Student from "@/app/models/Students";
-import { NextAuthOptions } from "next-auth";
 import dbConnect from "@/db/courseConnect";
 
 declare module "next-auth" {
@@ -19,7 +18,7 @@ declare module "next-auth" {
   }
 }
 
-export const authOptions: NextAuthOptions = ({
+const handler = NextAuth ({
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -79,5 +78,4 @@ export const authOptions: NextAuthOptions = ({
   }
 });
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
