@@ -16,31 +16,40 @@ interface course extends Course{
   minRequirements: string
 }
 
-export  function GetCourse(){
-  return (
-    fetch("/api/course")
-    .then(response => response.json())
-    .catch(error => console.log("Error fetching courses", error))
-  )
-} 
-
 export default function Courses() {
   const [course, setCourse] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    GetCourse().then((data) => setCourse(data))
-  }, [])
-
+    const fetchCourses = async () => {
+      setLoading(true);
+      try{
+        const response = await fetch("http://localhost:3000/api/course");
+      const data = await response.json();
+      setCourse(data);
+      } catch (error) {
+        console.log("Error fetching courses",error)
+      } finally {
+        setLoading(false);
+      }      
+    };
+    fetchCourses();
+  }, []);
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       <h1 className={title({})}>Courses</h1>
-      <div className="flex flex-col ml-1.5">
+      <div className="flex flex-col ml-1.5 items-center justify-center">
         <p>
           Are you looking to advance your studies in a good institution? At {siteConfig.name} we offer a wide variety of courses, taught by some of the best lectures in the country. 
           Hurry up and register for a course now! 
         </p>
       </div>
-        <div className="flex mt-2" >
+        <div className="flex mt-2 justify-center items-center" >
+          {loading ? (
+            <div className="text-center w-full">
+              <p>Loading Courses...</p>
+            </div>
+          ):(
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -53,22 +62,29 @@ export default function Courses() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {course.map((course: course) => (
-                  <TableRow key={course.courseTitle}>
-                    <TableCell>
-                      <Link href={`/courses/${course.courseTitle}`} className="text-blue-700 hover:underline" >
-                        {course.courseTitle}
-                      </Link>
-                    </TableCell>
-                    <TableCell>{course.courseCode}</TableCell>
-                    <TableCell>{course.courseDuration}</TableCell>
-                    <TableCell>{course.minRequirements}</TableCell>
-                    <TableCell>{course.courseFee}</TableCell>
+                {course.length > 0 ? (
+                  course.map((course: course) => (
+                    <TableRow key={course.courseTitle}>
+                      <TableCell>
+                        <Link href={`/courses/${course.courseTitle}`} className="text-blue-700 hover:underline" >
+                          {course.courseTitle}
+                        </Link>
+                      </TableCell>
+                      <TableCell>{course.courseCode}</TableCell>
+                      <TableCell>{course.courseDuration}</TableCell>
+                      <TableCell>{course.minRequirements}</TableCell>
+                      <TableCell>{course.courseFee}</TableCell>
+                    </TableRow>
+                  ))
+                ):(
+                  <TableRow>
+                    <TableCell colSpan={5} align="center" >No courses found</TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>
+          )}
         </div>      
     </div>
   )

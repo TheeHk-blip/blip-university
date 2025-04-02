@@ -13,13 +13,21 @@ export const siteConfig = {
       href: "/courses",
       label: "Courses"
     },
+    
+  ],
+  dashboardLinks: [
     {
       href: "/fees",
       label: "Fees"
     },
     {
       href: "/registration",
-      label: "Unit Registration"
+      label: "Unit-Registration"
+    },
+    {
+      href: "/results",
+      label: "Results"
     }
   ]
+
 }

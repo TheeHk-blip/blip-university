@@ -1,9 +1,12 @@
+"use client"
 import Image from "next/image";
 import { siteConfig } from "../config/site";
 import Link from "next/link";
-import { AccountCircle } from "@mui/icons-material";
+import { signOut, useSession } from "next-auth/react";
+import { Avatar } from "@mui/material";
 
 export  function Navbar() {
+  const { data: session } = useSession();
 
   return(
     <nav className="navbar flex m-1 h-20 items-center flex-row justify-between">
@@ -25,7 +28,24 @@ export  function Navbar() {
         ))}
       </ul>
       <div className="flex justify-end" >
-        <AccountCircle />
+        { session ? (     
+          <div>            
+            <Avatar className="mr-1" sx={{ width: 30, height: 30 }} />
+            <div className="flex flex-col">
+              <span className="text-sm font-light" >
+                {session.user.name}  
+              </span>
+              <button onClick={() => signOut({ callbackUrl: "/" })} className="cursor-pointer border-2 border-red-700  hover:bg-red-700 text-sm font-mono rounded-2xl" >
+                SignOut
+              </button>
+            </div>
+          </div>    
+        ):(
+          <Link href={"/"} className="flex items-center hover:underline text-blue-700 text-lg font-mono" >
+            <Avatar className="mr-1" />
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   )

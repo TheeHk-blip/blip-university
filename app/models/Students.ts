@@ -7,26 +7,51 @@ interface Student extends Document {
   phoneNo:  number,
   emailAddress: string,
   meanGrade: string,
+  courseCode: string,
+  year: number,
+  studentId: string
 }
 
 const studentScheme = new mongoose.Schema({
   firstName: {
-    type: String
+    type: String,
+    required: true
   },
   lastName: {
-    type: String
+    type: String,
+    required: true
   },
   nationalId: {
-    type: Number
+    type: Number,
+    required: true,
+    unique: true
   },
   phoneNo: {
-    type: Number
+    type: Number,
+    required: true,
+    unique: true
   },
   emailAddress: {
-    type: String
+    type: String,
+    required: true,
+    unique: true
   },
   meanGrade: {
-    type: String
+    type: String,
+    required: true
+  },
+  courseCode: {
+    type: String,
+    required: true
+  },
+  year: {
+    type: Number,
+    required: true
+  },
+  studentId: {
+    type: String,
+    required: true,
+    unique: true
   }
 });
 

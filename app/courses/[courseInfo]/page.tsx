@@ -9,22 +9,36 @@ interface courseInfo extends Course {
 
 
 export default async function CourseInfo({ params }: { params: Promise<{ courseInfo: string }> }) {
+ 
   const data = (await params).courseInfo;
   const courseInfo = decodeURIComponent(data);
   const response = await fetch("http://localhost:3000/api/course");
   const courseDetails = await response.json();
 
+  console.log("courseDetails", courseDetails);
+  console.log("Selected course", courseInfo);
+
+  // Filter the course details based on the selected course
+  const selectedCourse = courseDetails.find(
+    (course: courseInfo) => course.courseTitle === courseInfo
+  );
+
   return (
     <div className="flex flex-col" >
-      <h1 className={title({size: "sm"})}>{courseInfo}</h1>
+      <h1 className={title({size: "sm"})}>{courseInfo} ({selectedCourse?.courseCode})</h1>
       <div className="flex flex-col ml-2.5">     
-        {courseDetails.map((course: courseInfo) => (course.courseTitle === courseInfo ? course.courseDetails : ""))}        
+        {selectedCourse ? selectedCourse.courseDetails: ""}
         <div className="flex flex-col mt-1.5 justify-center items-center " >
-          <p className={subtitle({})} >
-            Go ahead and apply for this Course.
-          </p>    
-          <Register/>                
-        </div>        
+          <p className={subtitle({})}>
+            Fill in the form below to register.
+          </p>
+          {selectedCourse && (
+            <Register
+              courseTitle={selectedCourse.courseTitle}
+              minRequirements={selectedCourse.minRequirements}
+            />
+          )}
+        </div>      
       </div>
     </div>
   )
