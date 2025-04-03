@@ -35,7 +35,7 @@ export const POST = async (request: Request) => {
 
     //Get current year
     const year = new Date().getFullYear();
-
+    
     //Count existing students for the same year
     const studentCount = await Student.countDocuments({ year });
 

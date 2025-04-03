@@ -4,7 +4,7 @@ import Course from "@/app/models/Course";
 import Register from "@/app/components/register"
 
 interface courseInfo extends Course {
-  courseDetails: string
+  courseDetails: string,
 }
 
 
@@ -12,7 +12,7 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
  
   const data = (await params).courseInfo;
   const courseInfo = decodeURIComponent(data);
-  const response = await fetch(process.env.NODE_ENV === "production" ? process.env.NEXT_APP_API_PRODUCTION! : process.env.NEXT_APP_API_DEVELOPMENT!,);
+  const response = await fetch( process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/course" : "http://localhost:3000/api/course", );
   const courseDetails = await response.json();
 
   console.log("courseDetails", courseDetails);

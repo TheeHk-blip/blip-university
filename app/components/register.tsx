@@ -8,7 +8,7 @@ interface RegisterProps {
   minRequirements: string;
 }
 
-export default function Register({ minRequirements }: RegisterProps) {
+export default function Register({ minRequirements, courseTitle }: RegisterProps) {
   console.log("minRequirements", minRequirements);
     const [firstName,setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -66,7 +66,7 @@ export default function Register({ minRequirements }: RegisterProps) {
         formData.append("phoneNo", `${phoneNo}`);
         formData.append("emailAddress", emailAddress);
         formData.append("meanGrade", meanGrade);
-        const response = await fetch(process.env.NODE_ENV === "production" ? process.env.NEXT_APP_REGISTRATION_URL_PRODUCTION! : process.env.NEXT_APP_REGISTRATION_URL_DEVELOPMENT!,{
+        const response = await fetch(process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/student/register?courseTitle=" + courseTitle : "http://localhost:3000/api/student/register?courseTitle="+ courseTitle,{
           method: "POST",
           body: formData,
         });
@@ -96,16 +96,16 @@ export default function Register({ minRequirements }: RegisterProps) {
     <div>
     <form className="flex flex-col" onSubmit={handleSubmit} >
       <div className="flex flex-row gap-2" >
-        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="input"/> 
-        <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} className="input"/>
+        <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} className="input"/> 
+        <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} className="input"/>
       </div>  
       <div className="flex flex-row gap-2" >
-        <input type="number" placeholder="National Id" value={nationalId} onChange={(e) => setNationalId(e.target.value)} className="input"/>
-        <input type="number" placeholder="Phone No" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="input"/>
+        <input type="number" placeholder="National Id" value={nationalId} required onChange={(e) => setNationalId(e.target.value)} className="input"/>
+        <input type="number" placeholder="Phone No" value={phoneNo} required onChange={(e) => setPhoneNo(e.target.value)} className="input"/>
       </div>                        
       <div className="flex flex-row gap-2" >
-        <input type="email" placeholder="Email Address" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} className="input"/>
-        <input type="text" placeholder="KCSE mean grade" value={meanGrade} onChange={(e) => setMeanGrade(e.target.value)} className="input"/>
+        <input type="email" placeholder="Email Address" value={emailAddress} required onChange={(e) => setEmailAddress(e.target.value)} className="input"/>
+        <input type="text" placeholder="KCSE mean grade" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="input"/>
       </div>  
       {loading ? (
       <div className="flex justify-center mt-1" >

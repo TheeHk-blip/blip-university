@@ -24,7 +24,7 @@ export default function Courses() {
     const fetchCourses = async () => {
       setLoading(true);
       try{
-        const response = await fetch(process.env.NODE_ENV === "production" ? process.env.NEXT_APP_API_PRODUCTION! : process.env.NEXT_APP_API_DEVELOPMENT!,);
+        const response = await fetch(process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/course" : "http://localhost:3000/api/course", );
       const data = await response.json();
       setCourse(data);
       } catch (error) {
