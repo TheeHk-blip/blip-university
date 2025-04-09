@@ -24,7 +24,7 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
   );
 
   return (
-    <div className="flex flex-col" >
+    <div className="flex flex-col sm:flex-wrap" >
       <h1 className={title({size: "sm"})}>{courseInfo} ({selectedCourse?.courseCode})</h1>
       <div className="flex flex-col ml-2.5">     
         {selectedCourse ? selectedCourse.courseDetails: ""}

@@ -9,7 +9,7 @@ export  function Navbar() {
   const { data: session } = useSession();
 
   return(
-    <nav className="navbar flex m-1 h-20 items-center flex-row justify-between">
+    <nav className="navbar flex h-20 items-center flex-row justify-between">
       <span className="gap-2 justify-start" >
         <Image
           alt={""}

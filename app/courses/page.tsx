@@ -1,6 +1,5 @@
 "use client"
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { title } from "../components/primitives";
 import { siteConfig } from "../config/site";
 import Course from "../models/Course";
@@ -24,7 +23,7 @@ export default function Courses() {
     const fetchCourses = async () => {
       setLoading(true);
       try{
-        const response = await fetch(process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/course" : "http://localhost:3000/api/course", );
+        const response = await fetch(process.env.NODE_ENV == "development" ? "http://localhost:3000/api/course" : "https://blip-university.vercel.app/api/course", );
       const data = await response.json();
       setCourse(data);
       } catch (error) {
@@ -35,57 +34,67 @@ export default function Courses() {
     };
     fetchCourses();
   }, []);
-  return (
-    <div className="flex flex-col items-center justify-center">
+  return(
+    <div className="flex flex-col items-center justify-center px-4">
       <h1 className={title({})}>Courses</h1>
       <div className="flex flex-col ml-1.5 items-center justify-center">
         <p>
-          Are you looking to advance your studies in a good institution? At {siteConfig.name} we offer a wide variety of courses, taught by some of the best lectures in the country. 
-          Hurry up and register for a course now! 
+          Are you looking to advance your studies in a good institution? At{" "}
+          {siteConfig.name}, we offer a wide variety of courses, taught by some
+          of the best lecturers in the country. Hurry up and register for a
+          course now!
         </p>
       </div>
-        <div className="flex mt-2 justify-center items-center" >
-          {loading ? (
-            <div className="text-center w-full">
-              <p>Loading Courses...</p>
-            </div>
-          ):(
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow className="flex" >
-                  <TableCell>Course</TableCell>
-                  <TableCell>Course Code</TableCell>                  
-                  <TableCell>Duration(Years)</TableCell>
-                  <TableCell>Min.Requirements</TableCell>
-                  <TableCell>Fee(Per Academic Year)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+      <div className="flex mt-4 justify-center items-center w-full">
+        {loading ? (
+          <div className="text-center w-full">
+            <p>Loading Courses...</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto w-full">
+            <table className="table-auto bg-white text-gray-800 border-collapse border border-gray-300 w-full text-sm md:text-base">
+              <thead>
+                <tr className="bg-gray-50 text-gray-700">
+                  <th className="Table">Course Title</th>                                      
+                  <th className="Table"> Course Code</th>                                     
+                  <th className="Table">Course Fee</th>                                     
+                  <th className="Table">Course Duration</th>                                      
+                  <th className="Table">Minimum Requirements</th>                                     
+                </tr>
+              </thead>
+              <tbody className="text-center" >
                 {course.length > 0 ? (
                   course.map((course: course) => (
-                    <TableRow key={course.courseTitle}>
-                      <TableCell>
-                        <Link href={`/courses/${course.courseTitle}`} className="text-blue-700 hover:underline" >
-                          {course.courseTitle}
-                        </Link>
-                      </TableCell>
-                      <TableCell>{course.courseCode}</TableCell>
-                      <TableCell>{course.courseDuration}</TableCell>
-                      <TableCell>{course.minRequirements}</TableCell>
-                      <TableCell>{course.courseFee}</TableCell>
-                    </TableRow>
+                  <tr
+                    key={course.courseTitle}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="Table">
+                      <Link
+                        href={"/courses/" + course.courseTitle}
+                        className="hover:underline text-blue-800"
+                      >
+                        {course.courseTitle}
+                      </Link>
+                    </td>
+                    <td className="Table"> {course.courseCode}</td>                                         
+                    <td className="Table">{course.courseFee}</td>                                          
+                    <td className="Table">{course.courseDuration}</td>                                          
+                    <td className="Table">{course.minRequirements}</td>                                          
+                  </tr>
                   ))
                 ):(
-                  <TableRow>
-                    <TableCell colSpan={5} align="center" >No courses found</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          )}
-        </div>      
+                  <tr>
+                    <td colSpan={5} className="border-b border-gray-300 px-4 py-2 text-center">
+                      No courses found.
+                    </td>
+                  </tr>
+                )}                
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
-  )
+  );
 }

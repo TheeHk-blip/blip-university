@@ -31,22 +31,23 @@ export default function Home() {
   }
 
   return (
-    <div className="items-center justify-items-center min-h-screen  gap-3 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[10px]">
+    <div className="Home flex  justify-center items-center gap-3 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col items-center gap-[10px]">
         <div className="ml-5" >
           <h1 className={title({})}>WELCOME</h1>
         </div>
-        <div className="flex flex-col gap-1.5" >
+        <div className="flex flex-col items-center gap-1.5" >
           <p>
             Please Login to access the Student Portal
           </p>
           <p className="text-sm text-gray-500 ml-2">
-            Note: Your password is your phone number<br/>
-            Your student ID takes the form of CourseCode/year of admission/registration number<br/>
-            Example: BCS/2025/1
+            Note:If you are a new student head over to the Courses tab and Apply for a Course .<br/>
+            Your password is your phone number.<br/>
+            Your student ID takes the form of CourseCode/year of admission/registration number.<br/>
+            Example: BCS/2025/1.
           </p>
           <form onSubmit={handleSubmit} >
-            <div className="flex flex-col" >
+            <div className="flex flex-col items-center" >
               <input type="text" placeholder="Student Id" value={studentId} onChange={(e) => setStudentId(e.target.value)} className="input"/>                            
               <input type="password" placeholder="Password" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="input"/>
             </div>

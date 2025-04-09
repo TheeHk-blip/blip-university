@@ -66,7 +66,7 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
         formData.append("phoneNo", `${phoneNo}`);
         formData.append("emailAddress", emailAddress);
         formData.append("meanGrade", meanGrade);
-        const response = await fetch(process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/student/register?courseTitle=" + courseTitle : "http://localhost:3000/api/student/register?courseTitle="+ courseTitle,{
+        const response = await fetch(process.env.NODE_ENV == "production" ? `https://blip-university.vercel.app/api/student/register?courseTitle=${courseTitle}`:`http://localhost:3000/api/student/register?courseTitle=${courseTitle}`,{
           method: "POST",
           body: formData,
         });
