@@ -18,7 +18,7 @@ declare module "next-auth" {
   }
 };
 
-export const authOptions: NextAuthOptions = ({
+export const AuthOptions: NextAuthOptions = ({
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -82,6 +82,5 @@ export const authOptions: NextAuthOptions = ({
   }
 });
 
-const handler = NextAuth(authOptions);
-export default  handler;
+const handler = NextAuth(AuthOptions);
 export { handler as GET, handler as POST };
