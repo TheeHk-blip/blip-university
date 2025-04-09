@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import "./globals.css";
 import { Navbar } from "./components/navbar";
 import { siteConfig } from "./config/site";
@@ -35,6 +37,7 @@ export default function RootLayout({
           <Navbar/>     
           <main className="container pt-5 pl-1.5 z-auto" >
             {children} 
+            <SpeedInsights />
           </main>     
         </div>        
       </Providers>     
