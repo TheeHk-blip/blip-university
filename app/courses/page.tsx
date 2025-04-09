@@ -56,10 +56,10 @@ export default function Courses() {
               <thead>
                 <tr className="bg-gray-50 text-gray-700">
                   <th className="Table">Course Title</th>                                      
-                  <th className="Table"> Course Code</th>                                     
-                  <th className="Table">Course Fee</th>                                     
-                  <th className="Table">Course Duration</th>                                      
-                  <th className="Table">Minimum Requirements</th>                                     
+                  <th className="Table">Course Code</th>                                                                                           
+                  <th className="Table">Duration(years)</th>                                      
+                  <th className="Table">Minimum Requirements</th>
+                  <th className="Table">Fee(per academic year)</th>                                    
                 </tr>
               </thead>
               <tbody className="text-center" >
@@ -77,10 +77,10 @@ export default function Courses() {
                         {course.courseTitle}
                       </Link>
                     </td>
-                    <td className="Table"> {course.courseCode}</td>                                         
-                    <td className="Table">{course.courseFee}</td>                                          
+                    <td className="Table"> {course.courseCode}</td>                                                                                                      
                     <td className="Table">{course.courseDuration}</td>                                          
-                    <td className="Table">{course.minRequirements}</td>                                          
+                    <td className="Table">{course.minRequirements}</td>  
+                    <td className="Table">{course.courseFee}</td>                                       
                   </tr>
                   ))
                 ):(
