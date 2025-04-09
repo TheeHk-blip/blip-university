@@ -120,7 +120,7 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
 
     <Snackbar
       open={alertOpen}
-      autoHideDuration={6000}
+      autoHideDuration={20000}
       onClose={handleAlertClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
