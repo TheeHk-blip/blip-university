@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {Alert, Snackbar} from "@mui/material";
+import { useRouter } from "next/navigation";
 
 interface RegisterProps {
   courseTitle: string;
@@ -10,6 +11,8 @@ interface RegisterProps {
 
 export default function Register({ minRequirements, courseTitle }: RegisterProps) {
   console.log("minRequirements", minRequirements);
+    const router = useRouter();
+    
     const [firstName,setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [nationalId, setNationalId] = useState<number | string>("");
@@ -75,8 +78,14 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
           const data = await response.json();
           setAlertMessage("Application Successful! Your student ID is: " + data.studentId);
           setAlertSeverity("success");
-          setAlertOpen(true);
-          return data;
+          setAlertOpen(true);      
+
+          // Redirect to home page
+          setTimeout(() => {
+            router.push("/");
+          }, 20000); // Redirect after 20 seconds          
+          
+          return data;          
         } else {
           setAlertMessage("Application Failed. Please try again.");
           setAlertSeverity("error");
