@@ -3,7 +3,7 @@ import Student from "@/app/models/Students";
 import dbConnect from "@/db/courseConnect";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { AuthOptions as authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/authOptions";
 
 
 export const GET = async () => {
