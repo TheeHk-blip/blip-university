@@ -3,14 +3,14 @@ import Student from "@/app/models/Students";
 import dbConnect from "@/db/courseConnect";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { AuthOptions } from "../../auth/[...nextauth]/route";
+import { AuthOptions as authOptions } from "../../auth/[...nextauth]/route";
 
 
 export const GET = async () => {
   try {
     await dbConnect();
 
-    const session = await getServerSession(AuthOptions);
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user.studentId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
