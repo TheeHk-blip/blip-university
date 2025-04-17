@@ -5,7 +5,7 @@ import Student from "@/app/models/Students";
 import User from "./app/models/Users";
 import crypto from "crypto";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {  
   providers: [
     CredentialsProvider({
       name: "Credentials",

@@ -3,15 +3,34 @@ import Image from "next/image";
 import { siteConfig } from "../config/site";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { Avatar } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import { useRef, useState } from "react";
 
 export  function Navbar() {
   const { data: session } = useSession();
   console.log("session data:", session);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Function to get initials from the user's name
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase();
+  }
 
   return(
-    <nav className="navbar flex h-20 items-center flex-row justify-between">
-      <span className="gap-2 justify-start" >
+    <nav className="navbar flex h-20 p-1 items-center flex-row justify-evenly sm:justify-between">
+      <span className="navbrand gap-2 justify-start" >
         <Image
           alt={""}
           src={"/logo.png"}
@@ -21,7 +40,7 @@ export  function Navbar() {
         />        
         <span className="text-sm font-bold hidden sm:inline">{siteConfig.name}</span>
       </span>
-      <ul className="flex flex-row gap-3 justify-center">
+      <ul className="flex flex-row gap-1.5 sm:gap-3 items-center justify-center">
         {siteConfig.navLinks.map((link) => (
           <li key={link.href}>
             <Link href={link.href} className="hover:underline text-blue-700 text-lg font-mono">{link.label}</Link>
@@ -30,15 +49,46 @@ export  function Navbar() {
       </ul>
       <div className="flex justify-end" >
         { session ? (     
-          <div>            
-            <Avatar className="mr-1" sx={{ width: 30, height: 30 }} />
+          <div>             
+            <Avatar 
+              className="mr-1 cursor-pointer " 
+              sx={{ width: 35, height: 35, color: "white", backgroundColor: "green" }} 
+              onClick={handleClick} ref={anchorRef}               
+            >
+              {getInitials(session.user.name || "User")}
+            </Avatar>
+            <Menu 
+              open={open} 
+              onClose={handleClose} 
+              anchorEl={anchorRef.current} 
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right"
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right"
+              }}
+              sx={{
+                "& .MuiPaper-root": {
+                  backgroundColor: "black",
+                  color: "#fff",
+                  borderRadius: "0.5rem",
+                  boxShadow: "inset 0px 0px .8px 0px white"
+                }
+              }}
+            >
+              <MenuItem onClick={handleClose} >My Account</MenuItem>
+              <MenuItem onClick={handleClose} >
+                <button onClick={() => signOut({ callbackUrl: "/" })} className="button-logout" >
+                  SignOut
+                </button>
+              </MenuItem>
+            </Menu>
             <div className="flex flex-col">
-              <span className="text-sm font-light" >
+              <span className="text-sm font-light mt-0.5" >
                 {session.user.name}
-              </span>
-              <button onClick={() => signOut({ callbackUrl: "/" })} className="cursor-pointer mt-0.5 border-1 border-amber-400  hover:border-2 hover:border-red-600 text-sm font-mono text-center rounded-sm" >
-                SignOut
-              </button>
+              </span>              
             </div>
           </div>    
         ):(

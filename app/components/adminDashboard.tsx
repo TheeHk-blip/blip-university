@@ -1,8 +1,8 @@
 
 
+import { authOptions } from "@/authOptions";
 import { title } from "../components/primitives";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/authOptions";
 
 
 export default async function Admin() {
@@ -20,7 +20,9 @@ export default async function Admin() {
     <div className="flex justify-center items-center" >
       <div className="flex justify-center text-center" >
         <p className={title({})} >Welcome {session.user.name}</p>
-      </div>      
+      </div>
+      <div>        
+      </div>
     </div>
   )
 }

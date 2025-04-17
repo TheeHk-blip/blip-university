@@ -12,7 +12,9 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
  
   const data = (await params).courseInfo;
   const courseInfo = decodeURIComponent(data);
-  const response = await fetch( process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/course" : "http://localhost:3000/api/course", );
+  const response = await fetch(
+     process.env.NODE_ENV == "production"
+    ? "https://blip-university.vercel.app/api/course" : "http://localhost:3000/api/course", );
   const courseDetails = await response.json();
 
  // console.log("Selected course", courseInfo);

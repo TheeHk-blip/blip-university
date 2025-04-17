@@ -3,7 +3,10 @@
 
 import { useState } from "react";
 import { title } from "./components/primitives";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import Admin from "./components/adminDashboard";
+import StudentDashboard from "./components/studentDashboard";
+import LecturerDashboard from "./components/lecturerDashboard";
 
 export default function Home() {
   const [studentId, setStudentId] = useState("");
@@ -26,7 +29,7 @@ export default function Home() {
     if (result?.error) {
       setErrorMessage(result.error);
     } else {
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     }
     setLoading(false);
   }
@@ -34,35 +37,50 @@ export default function Home() {
   return (
     <div className="Home flex  justify-center items-center gap-3 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col items-center gap-[10px]">
-        <div className="ml-5" >
+        <div className="text-center" >
           <h1 className={title({})}>WELCOME</h1>
         </div>
         <div className="flex flex-col items-center gap-1.5" >
-          <p>
-            Please Login to access the Student Portal
-          </p>
-          <p className="text-sm text-gray-500 ml-2">
-            Note:If you are a new student head over to the Courses tab and Apply for a Course .<br/>
-            Your password is your phone number.<br/>
-            Your student ID takes the form of CourseCode/year of admission/registration number.<br/>
-            Example: BCS/2025/1.
-          </p>
           {session ? (
-            <button onClick={() => signOut({ callbackUrl: "/" })} className="button-logout" >
-              SignOut
-            </button>
+            (() => {
+              switch (session.user.role) {
+                case "admin":
+                  return <Admin />;
+                case "lecturer":
+                  return <LecturerDashboard />;
+                case "student":
+                  return <StudentDashboard />;
+                default:
+                  return (
+                    <div className="text-center">
+                      <p className={title({})}>You are not authorized to view this page!</p>
+                    </div>
+                  );
+              }
+            })()
           ):(
-            <form onSubmit={handleSubmit} >
-              <div className="flex flex-col items-center" >
-                <input type="text" placeholder="Student Id" value={studentId} onChange={(e) => setStudentId(e.target.value)} className="elegant-input"/>                            
-                <input type="password" placeholder="Password" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="elegant-input"/>
-              </div>
-              {errorMessage && (
-                <div className="text-red-500 text-sm mt-2">
-                  {errorMessage}
+            <div>
+              <p>
+                Please Login to access the Student Portal
+              </p>
+              <p className="text-sm text-gray-500 ml-2">
+                Note:<br/>
+                If you are a new student head over to the Courses tab and Apply for a Course .<br/>
+                Your password is your phone number.<br/>
+                Your student ID takes the form of CourseCode/year of admission/registration number.<br/>
+                Example: BCS/2025/1.
+              </p>          
+              <form onSubmit={handleSubmit} >
+                <div className="flex flex-col items-center" >
+                  <input type="text" placeholder="Student Id" value={studentId} onChange={(e) => setStudentId(e.target.value)} className="elegant-input"/>                            
+                  <input type="password" placeholder="Password" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="elegant-input"/>
                 </div>
-              )}
-              <div className="flex justify-center text-center items-center mt-1">   
+                {errorMessage && (
+                  <div className="text-red-500 text-sm mt-2">
+                    {errorMessage}
+                  </div>
+                )}
+                <div className="flex justify-center text-center items-center mt-1">   
                  {loading ? (
                     <div className="spinner">
                       <span></span>      
@@ -75,12 +93,13 @@ export default function Home() {
                       <span></span>
                     </div>
                   ):(          
-                <button className="button-login flex items-center justify-center text-center" type="submit" disabled={loading} >                  
-                  <span>Login</span>                   
-                </button>
-              )}             
-              </div>
-            </form>
+                    <button className="button-login flex items-center justify-center text-center" type="submit" disabled={loading} >                  
+                      <span>Login</span>                   
+                    </button>
+                  )}             
+                </div>
+              </form>
+            </div>
           )}
         </div>
       </main>      

@@ -14,8 +14,8 @@ export const siteConfig = {
       label: "Courses"
     },
     {
-      href: "/dashboard",
-      label: "Dashboard"
+      href: "/contact",
+      label: "Contact Us"
     }
     
   ],

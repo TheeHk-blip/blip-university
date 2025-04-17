@@ -69,7 +69,10 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
         formData.append("phoneNo", `${phoneNo}`);
         formData.append("emailAddress", emailAddress);
         formData.append("meanGrade", meanGrade);
-        const response = await fetch(process.env.NODE_ENV == "production" ? `https://blip-university.vercel.app/api/student/register?courseTitle=${courseTitle}`:`http://localhost:3000/api/student/register?courseTitle=${courseTitle}`,{
+        const response = await fetch(
+          process.env.NODE_ENV == "production" 
+          ? `https://blip-university.vercel.app/api/student/register?courseTitle=${courseTitle}`
+          :`http://localhost:3000/api/student/register?courseTitle=${courseTitle}`,{
           method: "POST",
           body: formData,
         });
@@ -104,15 +107,15 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
   return (
     <div>
     <form className="flex flex-col" onSubmit={handleSubmit} >
-      <div className="flex flex-row gap-2" >
+      <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
         <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} className="elegant-input"/> 
         <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} className="elegant-input"/>
       </div>  
-      <div className="flex flex-row gap-2" >
+      <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
         <input type="number" placeholder="National Id" value={nationalId} required onChange={(e) => setNationalId(e.target.value)} className="elegant-input"/>
         <input type="number" placeholder="Phone No" value={phoneNo} required onChange={(e) => setPhoneNo(e.target.value)} className="elegant-input"/>
       </div>                        
-      <div className="flex flex-row gap-2" >
+      <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
         <input type="email" placeholder="Email Address" value={emailAddress} required onChange={(e) => setEmailAddress(e.target.value)} className="elegant-input"/>
         <input type="text" placeholder="KCSE mean grade" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="elegant-input"/>
       </div>  

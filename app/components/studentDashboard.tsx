@@ -2,11 +2,10 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-import { title } from "../components/primitives";
 import { siteConfig } from "../config/site";
 import Link from "next/link";
 
-export default function Dashboard() {
+export default function StudentDashboard() {
   const { data: session } = useSession();
 
   const [units, setUnits] = useState("");
@@ -44,24 +43,24 @@ export default function Dashboard() {
   },[session?.user.userId]);
     
   if (loading) {
-    return <div className="text-center justify-center" >Loading...</div>;
-  }
-  if (!session) {   
-    return(
-      <div className="flex flex-col justify-center items-center">
-        <h1 className={title({})} >Dashboard</h1>
-        <p className="text-lg font-mono">You are not logged in. Please log in to view your dashboard.</p>
-        <Link href="/" className="text-blue-700 text-lg font-mono hover:underline">Login</Link>
-        <span className="text-md text-gray-500 font-mono">Note: If you are an Admin use the link below </span>
-        <p className="text-md text-gray-500 font-mono">to view the admin dashboard.</p>
-        <Link href="/admin/register" className="text-blue-700 text-lg font-mono hover:underline">Admin</Link>        
+    return (
+      <div className="flex justify-center items-center" >
+        <div className="spinner justify-center" >
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className={title({})} >Dashboard</h1>
       <div>
         <nav className="dashboard flex m-1 h-20 items-center flex-row gap-3 justify-between">
           {siteConfig.dashboardLinks.map((link) => (

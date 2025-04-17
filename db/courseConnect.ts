@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const MONGO_URI = process.env.MONGODB_URI!;
+const URI = MONGO_URI
 
-if (!MONGO_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable inside")
+if (!URI) {
+  throw new Error("Please define the MONGODB_URI environment variable")
 } 
 
 export default async function dbConnect() {

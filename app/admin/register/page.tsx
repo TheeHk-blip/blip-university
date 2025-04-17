@@ -1,5 +1,6 @@
 "use client";
 
+import { title } from "@/app/components/primitives";
 import { Alert, Snackbar } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -54,15 +55,14 @@ export default function Register() {
 
   return (
     <div className="flex flex-col justify-center items-center" >
-      <span>Admin Registration</span>
-
+      <span className={title({})} >Admin Registration</span>
       <div>
-        <form className="flex flex-col" onSubmit={handleSubmit} >
-              <div className="flex flex-row gap-2" >
+        <form className="flex flex-col mt-5" onSubmit={handleSubmit} >
+              <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
                 <input type="text" placeholder="First Name" value={firstname} required onChange={(e) => setFirstName(e.target.value)} className="elegant-input"/>
                 <input type="text" placeholder="Last Name" value={lastname} required onChange={(e) => setLastName(e.target.value)} className="elegant-input"/>                
               </div>                                    
-              <div className="flex flex-row gap-2" >
+              <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
                 <input type="email" placeholder="Email Address" value={email} required onChange={(e) => setEmail(e.target.value)} className="elegant-input"/>
                 <input type="password" placeholder="Password" value={password} required onChange={(e) => setPassword(e.target.value)} className="elegant-input"/>
               </div>  
@@ -84,7 +84,8 @@ export default function Register() {
                 <div>
                   <button className="elegant-button text-center" type="submit">Register</button>               
                 </div>    
-               <Link href="/admin/login" className="text-blue-700 text-lg font-mono hover:underline">Login</Link>
+                <span className="text-md text-gray-500 font-mono">Already have an account?</span>
+               <Link href="/admin/login" className="elegant-link  ">Login</Link>
               </div>
               )}                                  
             </form>
