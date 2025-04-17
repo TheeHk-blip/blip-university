@@ -15,12 +15,12 @@ export default function Fees() {
     const fetchFees = async () => {
       setLoading(true);
       try {
-        const studentId = session?.user.studentId;
+        const studentId = session?.user.userId;
         
         const response = await fetch(
           process.env.NODE_ENV == "development"
-            ? "http://localhost:3000/api/student/fees?studentId=" + studentId
-            : "https://blip-university.vercel.app/api/student/fees?studentId=" + studentId,);
+            ? "http://localhost:3000/api/student/fees?userId=" + studentId
+            : "https://blip-university.vercel.app/api/student/fees?userId=" + studentId,);
 
             if (response.ok) {
               const data = await response.json();
@@ -38,7 +38,7 @@ export default function Fees() {
       }
     };
     fetchFees();
-  },[session?.user.studentId]);
+  },[session?.user.userId]);
 
   if (loading) {
     return <div className="text-center w-full">Loading Fees...</div>;
