@@ -7,6 +7,7 @@ interface Course extends Document {
   courseDuration: string;
   minRequirements: string;
   courseDetails: string;
+  courseUnits: string;
 }
 
 const courseScheme = new mongoose.Schema({
@@ -28,6 +29,9 @@ const courseScheme = new mongoose.Schema({
   courseDetails: {
     type: String,  
   },
+  courseUnits: {
+    type: String,  
+  }
 });
 
 const Course = mongoose.models.Courses || mongoose.model("Courses", courseScheme);

@@ -2,34 +2,60 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "@/db/courseConnect";
 import Student from "@/app/models/Students";
+import User from "./app/models/Users";
+import crypto from "crypto";
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        studentId: { label: "Student ID", type: "text" },
-        phoneNo: { label: "Phone Number", type: "password" },
-      },
+        userId: { label: "User ID", type: "text" },
+        password: { label: "Password", type: "password" },
+      },                   
+        
       async authorize(credentials) {
         await dbConnect();
 
-        const { studentId, phoneNo } =credentials || {};
+        const { userId, password } = credentials || {};
 
-        if (!studentId || !phoneNo) {
-          throw new Error("Student ID and phone number are required");
+        if (!userId || !password) {
+          throw new Error("User ID and password are required");
         }
+        
+        // Hash password before querying the database
+        const hashedPassword = crypto
+          .createHash("sha256")
+          .update(password)
+          .digest("hex");
 
-        const student = await Student.findOne({ studentId, phoneNo}).exec();
-
-        if (!student) {
-          throw new Error("Invalid student ID or phone number");
+        // Find user in the database
+        const user = await User.findOne({ userId, password: hashedPassword }).exec();
+        
+        if (!user) {
+          console.error("User not found for userId:", userId);
+          throw new Error("Invalid user ID or password");
         }
-
-        return { id: student._id, studentId: student.studentId, name: student.firstName + " " + student.lastName };
-      }
-    })
+        // If user is student fetch additional student specific data        
+        let studentData = null;
+        if (user.role === "student") {
+          studentData = await Student.findOne({ studentId: user.userId }).exec();
+          if (!studentData) {
+            throw new Error("Student not found");
+          }
+        }
+        
+        return {
+          id: user._id,
+          userId: user.userId,
+          role: user.role,
+          name: user.name,
+          studentData
+        };
+      },
+    }),
   ],
+
   session: {
     strategy: "jwt",
     maxAge: 60 * 60, // 1 hour
@@ -40,20 +66,26 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.studentId = user.studentId;
+        token.userId = user.userId;
+        token.role = user.role;
         token.name = user.name;
+        if (user.studentId) {
+          token.studentId = user.studentId;
+        }
       }
       return token;
     },
     async session({ session, token }) {
       session.user = {
-        studentId: token.studentId as string,
+        userId: token.userId as string,
+        role: token.role as string,
         name: token.name as string,
+        studentData: token.studentData as string || null,
       };
       return session;
     }
   },
   pages: {
     signIn: "/"
-  }
+  }  
 }

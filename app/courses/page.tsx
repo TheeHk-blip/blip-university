@@ -47,8 +47,15 @@ export default function Courses() {
       </div>
       <div className="flex mt-4 justify-center items-center w-full">
         {loading ? (
-          <div className="text-center w-full">
-            <p>Loading Courses...</p>
+          <div className="spinner mt-5">
+            <span></span>      
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         ) : (
           <div className="overflow-x-auto w-full">

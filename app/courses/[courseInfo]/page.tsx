@@ -15,8 +15,7 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
   const response = await fetch( process.env.NODE_ENV == "production" ? "https://blip-university.vercel.app/api/course" : "http://localhost:3000/api/course", );
   const courseDetails = await response.json();
 
-  console.log("courseDetails", courseDetails);
-  console.log("Selected course", courseInfo);
+ // console.log("Selected course", courseInfo);
 
   // Filter the course details based on the selected course
   const selectedCourse = courseDetails.find(
@@ -26,8 +25,8 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
   return (
     <div className="flex flex-col sm:flex-wrap" >
       <h1 className={title({size: "sm"})}>{courseInfo} ({selectedCourse?.courseCode})</h1>
-      <div className="flex flex-col ml-2.5">     
-        {selectedCourse ? selectedCourse.courseDetails: ""}
+      <div className="flex flex-col ml-2.5">  
+        <p className="whitespace-pre-line" >{selectedCourse ? selectedCourse.courseDetails: ""}</p> 
         <div className="flex flex-col mt-1.5 justify-center items-center " >
           <p className={subtitle({})}>
             Fill in the form below to register.

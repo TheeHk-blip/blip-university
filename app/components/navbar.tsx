@@ -7,6 +7,7 @@ import { Avatar } from "@mui/material";
 
 export  function Navbar() {
   const { data: session } = useSession();
+  console.log("session data:", session);
 
   return(
     <nav className="navbar flex h-20 items-center flex-row justify-between">
@@ -33,9 +34,9 @@ export  function Navbar() {
             <Avatar className="mr-1" sx={{ width: 30, height: 30 }} />
             <div className="flex flex-col">
               <span className="text-sm font-light" >
-                {session.user.name}  
+                {session.user.name}
               </span>
-              <button onClick={() => signOut({ callbackUrl: "/" })} className="cursor-pointer border-2 border-red-700  hover:bg-red-700 text-sm font-mono rounded-2xl" >
+              <button onClick={() => signOut({ callbackUrl: "/" })} className="cursor-pointer mt-0.5 border-1 border-amber-400  hover:border-2 hover:border-red-600 text-sm font-mono text-center rounded-sm" >
                 SignOut
               </button>
             </div>

@@ -3,6 +3,8 @@
 import Student from "@/app/models/Students";
 import { NextResponse } from "next/server";
 import Course from "@/app/models/Course";
+import User from "@/app/models/Users";
+import crypto  from "crypto";
 
 export const POST = async (request: Request) => {
   try {
@@ -56,8 +58,25 @@ export const POST = async (request: Request) => {
       studentId,
     });
     
+    const hashedPassword = crypto
+    .createHash("sha256")
+    .update(phoneNo)
+    .digest("hex");
+
+    //Create a new user instance
+    const user  = new User({
+      userId: studentId,
+      password: hashedPassword,
+      email: emailAddress,
+      role: "student",
+      name: firstName + " " + lastName,
+    })
+    
     //Save the student to the database
     await student.save();
+
+    //Save the user to the database
+    await user.save();
 
     return NextResponse.json({ message: "Application successful", studentId });
   } catch (error) {

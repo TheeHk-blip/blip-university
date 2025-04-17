@@ -105,24 +105,33 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
     <div>
     <form className="flex flex-col" onSubmit={handleSubmit} >
       <div className="flex flex-row gap-2" >
-        <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} className="input"/> 
-        <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} className="input"/>
+        <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} className="elegant-input"/> 
+        <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} className="elegant-input"/>
       </div>  
       <div className="flex flex-row gap-2" >
-        <input type="number" placeholder="National Id" value={nationalId} required onChange={(e) => setNationalId(e.target.value)} className="input"/>
-        <input type="number" placeholder="Phone No" value={phoneNo} required onChange={(e) => setPhoneNo(e.target.value)} className="input"/>
+        <input type="number" placeholder="National Id" value={nationalId} required onChange={(e) => setNationalId(e.target.value)} className="elegant-input"/>
+        <input type="number" placeholder="Phone No" value={phoneNo} required onChange={(e) => setPhoneNo(e.target.value)} className="elegant-input"/>
       </div>                        
       <div className="flex flex-row gap-2" >
-        <input type="email" placeholder="Email Address" value={emailAddress} required onChange={(e) => setEmailAddress(e.target.value)} className="input"/>
-        <input type="text" placeholder="KCSE mean grade" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="input"/>
+        <input type="email" placeholder="Email Address" value={emailAddress} required onChange={(e) => setEmailAddress(e.target.value)} className="elegant-input"/>
+        <input type="text" placeholder="KCSE mean grade" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="elegant-input"/>
       </div>  
       {loading ? (
       <div className="flex justify-center mt-1" >
-        <button className="login text-center border-blue-800" type="submit" disabled>Applying...</button>
+        <button className="login spinner text-center border-blue-800" type="submit" disabled>
+          <span></span>      
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>  
       ):(
       <div className="flex justify-center mt-1" >
-        <button className="login text-center" type="submit">Apply</button>
+        <button className="elegant-button text-center" type="submit">Apply</button>
       </div>    
       )}                                  
     </form>
