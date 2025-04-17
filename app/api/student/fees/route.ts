@@ -12,11 +12,11 @@ export const GET = async () => {
 
     const session = await getServerSession(authOptions);
 
-    if (!session || !session.user.studentId) {
+    if (!session || !session.user.userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const studentId = session.user.studentId;
+    const studentId = session.user.userId;
     const student = await Student.findOne({ studentId }).exec();
 
     if (!student) {
