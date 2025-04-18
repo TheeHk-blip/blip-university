@@ -103,7 +103,7 @@ export  function Navbar() {
             </div>
           </div>    
         ):(
-          <Link href={"/"} className="flex items-center hover:underline text-blue-700 text-lg font-mono" >
+          <div>          
             <Avatar className="mr-1" />
             <Menu 
               open={open} 
@@ -138,8 +138,7 @@ export  function Navbar() {
                 </button>
               </MenuItem>
             </Menu>
-            Login
-          </Link>
+          </div>         
         )}
       </div>
     </nav>
