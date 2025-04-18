@@ -105,6 +105,39 @@ export  function Navbar() {
         ):(
           <Link href={"/"} className="flex items-center hover:underline text-blue-700 text-lg font-mono" >
             <Avatar className="mr-1" />
+            <Menu 
+              open={open} 
+              onClose={handleClose} 
+              anchorEl={anchorRef.current} 
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right"
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right"
+              }}
+              sx={{
+                "& .MuiPaper-root": {
+                  backgroundColor: "black",
+                  color: "#fff",
+                  borderRadius: "0.5rem",
+                  boxShadow: "inset 0px 0px .8px 0px white"
+                }
+              }}
+            >
+              <MenuItem onClick={handleClose} >My Account</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" >
+                  Admin
+                </Link>               
+              </MenuItem>
+              <MenuItem onClick={handleClose} >
+                <button onClick={() => signOut({ callbackUrl: "/" })} className="button-logout" >
+                  SignOut
+                </button>
+              </MenuItem>
+            </Menu>
             Login
           </Link>
         )}
