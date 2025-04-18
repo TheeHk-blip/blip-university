@@ -131,12 +131,7 @@ export  function Navbar() {
                 <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" >
                   Admin
                 </Link>               
-              </MenuItem>
-              <MenuItem onClick={handleClose} >
-                <button onClick={() => signOut({ callbackUrl: "/" })} className="button-logout" >
-                  SignOut
-                </button>
-              </MenuItem>
+              </MenuItem>            
             </Menu>
           </div>         
         )}
