@@ -1,23 +1,27 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.MONGODB_URI!;
-const URI = MONGO_URI
+const MONGO_URI = process.env.MONGODB_URI || `mongodb+srv://theeHk:8swBFtyK7UJo6t5G@student-portal.f8qa2uh.mongodb.net/Courses`;
 
-if (!URI) {
-  throw new Error("Please define the MONGODB_URI environment variable")
-} 
+if (!MONGO_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
+}
+
+let isConnected = 0; // Track the connection state
 
 export default async function dbConnect() {
-  if(mongoose.connection.readyState !== 1) {
-    try{
-      await mongoose.connect(MONGO_URI, {
-        serverSelectionTimeoutMS: 30000,
-      });
-      console.log("Connected to DB");
-    } catch (error){
-      console.log("Connection failed",error)
-    }
-  } else {
-    console.log("Already connected to DB")
+  if (isConnected) {
+    console.log("Using existing database connection");
+    return;
+  }
+
+  try {
+    const db = await mongoose.connect(MONGO_URI, {          
+      serverSelectionTimeoutMS: 30000, // Optional: Adjust timeout as needed
+    });
+    isConnected = db.connections[0].readyState;
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    throw new Error("Failed to connect to MongoDB");
   }
 }

@@ -79,6 +79,17 @@ export  function Navbar() {
               }}
             >
               <MenuItem onClick={handleClose} >My Account</MenuItem>
+              <MenuItem onClick={handleClose}>
+                {session.user.role !== "admin" ? (
+                  <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" aria-disabled >
+                    Admin
+                  </Link>
+                ):(
+                  <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" >
+                    Admin
+                  </Link>
+                )}                
+              </MenuItem>
               <MenuItem onClick={handleClose} >
                 <button onClick={() => signOut({ callbackUrl: "/" })} className="button-logout" >
                   SignOut

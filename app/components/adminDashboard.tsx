@@ -5,7 +5,7 @@ import { title } from "../components/primitives";
 import { getServerSession } from "next-auth";
 
 
-export default async function Admin() {
+export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role !== "admin") {

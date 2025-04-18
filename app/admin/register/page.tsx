@@ -84,8 +84,8 @@ export default function Register() {
                 <div>
                   <button className="elegant-button text-center" type="submit">Register</button>               
                 </div>    
-                <span className="text-md text-gray-500 font-mono">Already have an account?</span>
-               <Link href="/admin/login" className="elegant-link  ">Login</Link>
+                <span className="text-md text-gray-500 font-mono">Delete your account?</span>
+                <Link href="/admin/deleteAccount" className="elegant-link  ">Delete</Link>
               </div>
               )}                                  
             </form>
