@@ -103,8 +103,8 @@ export  function Navbar() {
             </div>
           </div>    
         ):(
-          <div>          
-            <Avatar className="mr-1" />
+          <div>           
+            <Avatar className="mr-1 cursor-pointer" onClick={handleClick} ref={anchorRef} />
             <Menu 
               open={open} 
               onClose={handleClose} 
