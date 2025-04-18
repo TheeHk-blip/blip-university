@@ -47,7 +47,7 @@ export default function Register() {
       setAlertMessage("Admin registered successfully!");
       setAlertSeverity("success");
       setAlertOpen(true);
-      window.location.href = "/admin/login";
+      window.location.href = "/";
     }
 
     setLoading(false);
