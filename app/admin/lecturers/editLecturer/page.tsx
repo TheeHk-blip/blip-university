@@ -22,7 +22,9 @@ export default function EditLecturerForm({ lecturer}: { lecturer: Lecture}) {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/api/admin/lecturer/${lecturer._id}`, {
+      const response = await fetch(process.env.NODE_ENV === "production" 
+        ? `http://localhost:3000/api/admin/lecturer/${lecturer._id}`
+        : `https://blip-university.vercel.app/api/addmin/leturer/`+ lecturer._id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
