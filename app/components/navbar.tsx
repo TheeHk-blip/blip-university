@@ -81,9 +81,9 @@ export  function Navbar() {
               <MenuItem onClick={handleClose} >My Account</MenuItem>
               <MenuItem onClick={handleClose}>
                 {session.user.role !== "admin" ? (
-                  <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" aria-disabled >
+                  <span className=" text-gray-700 text-lg font-mono cursor-not-allowed ">
                     Admin
-                  </Link>
+                  </span>
                 ):(
                   <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" >
                     Admin
@@ -128,9 +128,9 @@ export  function Navbar() {
             >
               <MenuItem onClick={handleClose} >My Account</MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link href="/admin/register" className="hover:underline text-blue-700 text-lg font-mono" >
+                <span className=" text-gray-700 text-lg font-mono cursor-not-allowed " >
                   Admin
-                </Link>               
+                </span>               
               </MenuItem>            
             </Menu>
           </div>         

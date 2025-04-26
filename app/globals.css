@@ -69,6 +69,17 @@ body {
   border-radius: 10px;
   padding: 5px 10px;
   margin: 5px 0px;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+}
+
+.table-{
+  border-bottom: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 5px 0px;
 }
 
 @media screen and (max-width: 600px) {
@@ -94,6 +105,10 @@ body {
     justify-self: center;
     margin:2px;
   }
+
+  textarea{
+    width: 200px;
+  }
 }
 
 input.elegant-input {
@@ -113,8 +128,8 @@ input.elegant-input {
 input.elegant-input:focus {
   background-color:gainsboro;
   transform: scale(1.05);
-  box-shadow: 13px 13px 100px #969696,
-              -13px -13px 100px #307750;
+  box-shadow:inset 1px 1px 4px #969696,
+              inset -1px -1px 4px #307750;
 }
 
 
@@ -486,4 +501,88 @@ button.button-login:hover::before {
 
 .btn-53:hover span:nth-child(6) {
   transition-delay: 0.5s;
+}
+
+
+.card {
+  width: 190px;
+  height: 254px;
+  margin: 15px;
+  padding: 2px 4px;
+  border-radius: 10px;
+  background: lightgrey;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+
+.new-button {
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  box-shadow: inset 4px 4px 10px #bcbcbc,
+              inset -4px -4px 10px #ffffff;
+  cursor: pointer;
+  border: 1px solid rgb(206, 206, 206);
+  color: #707070;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-self: end;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.new-button:hover {
+  border: 2px solid #307750;
+  box-shadow: inset 2px 2px 4px #307750,
+              inset -2px -2px 4px #469b61;
+  color: #307750;
+}
+
+.neu-button {
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  box-shadow: inset 4px 4px 10px #bcbcbc,
+              inset -4px -4px 10px #ffffff;
+  cursor: pointer;
+  border: 2px solid rgb(206, 206, 206);
+  color: #707070;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-self: end;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.neu-button:hover {
+  box-shadow: inset 2px 2px 5px #bcbcbc,
+              inset -2px -2px 5px #ffffff,
+              2px 2px 5px #bcbcbc,
+              -2px -2px 5px #ffffff;
+}
+
+.neu-button:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 5px #bcbcbc,
+              inset -2px -2px 5px #ffffff,
+              2px 2px 5px #bcbcbc,
+              -2px -2px 5px #ffffff;
+}
+
+.card-student {
+  max-width: max-content;
+  border-radius: 10px;
+  background-color: #707070;  
+  padding:4px 8px;
+ }
+
+ textarea {
+  border: none;
+  outline: none;
+  margin: 5px;
+  width: 400px;
+  max-height: 80px;
+  color:#0a0a0a;
+  border-radius: 15px;
+  padding: 1em;
+  background-color: #ccc;
+  box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+  transition: 300ms ease-in-out;
 }

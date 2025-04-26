@@ -9,7 +9,9 @@ interface Student extends Document {
   meanGrade: string,
   courseCode: string,
   year: number,
-  studentId: string
+  studentId: string,
+  createdAt?: Date; // Automatically added by timestamps
+  updatedAt?: Date; // Automatically added by timestamps
 }
 
 const studentScheme = new mongoose.Schema({
@@ -52,8 +54,8 @@ const studentScheme = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  }
-});
+  },
+}, {timestamps: true});
 
 const Student = mongoose.models.Students || mongoose.model("Students", studentScheme)
 
