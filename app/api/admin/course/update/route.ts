@@ -2,14 +2,11 @@ import Course from "@/app/models/Course";
 import dbConnect from "@/db/courseConnect";
 import { NextResponse } from "next/server";
 
-interface Props {
-  id: string
-}
 
-export default async function PUT(request: Request, {params}: {params: Props}) {
+export async function PUT(request: Request, {params}: {params: Promise<{id: string}>}) {
   try {
     await dbConnect();
-    const {id} = params;
+    const {id} = (await params);
     const body = await request.json();
 
     const updatedCourse = await Course.findByIdAndUpdate(
