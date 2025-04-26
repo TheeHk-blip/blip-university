@@ -2,8 +2,11 @@ import Course from "@/app/models/Course";
 import dbConnect from "@/db/courseConnect";
 import { NextResponse } from "next/server";
 
+interface Props {
+  id: string
+}
 
-export async function PUT(request: Request, {params}: {params: {id:string}}) {
+export default async function PUT(request: Request, {params}: {params: Props}) {
   try {
     await dbConnect();
     const {id} = params;
