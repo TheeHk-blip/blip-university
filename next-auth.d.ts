@@ -17,4 +17,11 @@ declare module "next-auth" {
       studentData: string | null;
     };
   }
+
+  interface Lecture {
+    _id: string;
+    name: string;
+    email: string;
+    course: string;
+  }
 }
