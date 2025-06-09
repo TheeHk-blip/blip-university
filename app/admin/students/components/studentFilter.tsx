@@ -32,7 +32,7 @@ export default function StudentFilter({ students}: {students: Student[]}) {
   const courseCodes = Array.from(new Set(students.map((student) => student.courseCode)));
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-shrink sm:flex-wrap justify-center p-2 ">
       <div className="mb-4" >
         <label htmlFor="courseFilter">Filter by Course:</label>
         <select
@@ -49,8 +49,8 @@ export default function StudentFilter({ students}: {students: Student[]}) {
           ))}
         </select>
       </div>
-      <div className="overflow-x-auto w-full">
-      <table className="table-auto bg-white text-gray-800 border-collapse border border-gray-300 w-full text-sm md:text-base">
+      <div className="overflow-x-auto">
+      <table className="table-auto bg-white text-gray-800 border-collapse border border-gray-300 max-w-screen text-sm md:text-base">
           <thead>
             <tr className="bg-gray-50 text-gray-700">
               <th className="table-" >Name</th>

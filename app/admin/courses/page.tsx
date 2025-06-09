@@ -18,13 +18,13 @@ export default async function Courses() {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col justify-center flex-shrink sm:flex-wrap">
       <div className="text-center" >
         <span className={title({size: "sm"})}>Courses</span>
       </div>        
       <div className="flex">
-        <div className="overflow-x-auto  w-full ml-2.5" >
-        <table className="table-auto bg-white text-gray-800 border-collapse border border-gray-300 w-full text-sm md:text-base">
+        <div className="overflow-x-auto justify-center" >
+        <table className="table-auto bg-white text-gray-800 border-collapse border border-gray-300 max-w-screen text-center text-sm md:text-base">
           <thead>
             <tr className="bg-gray-50 text-gray-700">              
               <th className="Table" >Course Code</th>

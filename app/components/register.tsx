@@ -79,7 +79,7 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
 
         if (response.ok) {
           const data = await response.json();
-          setAlertMessage("Application Successful! Your student ID is: " + data.studentId);
+          setAlertMessage("Application Successful! Your student ID is: " + data.studentId + ". Your Password is your Phone No. Please save it somewhere safe. You will be redirected to the home page in 20 seconds.");                    
           setAlertSeverity("success");
           setAlertOpen(true);      
 
@@ -106,18 +106,36 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
 
   return (
     <div>
-    <form className="flex flex-col" onSubmit={handleSubmit} >
+    <form className="flex flex-col card" onSubmit={handleSubmit} >
       <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
-        <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} className="elegant-input"/> 
-        <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} className="elegant-input"/>
+        <div className="flex flex-col justify-center" >  
+          <label htmlFor="firstName" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">First Name</label>          
+          <input id="firstName" type="text"  placeholder="John" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="input self-center"/>    
+        </div>
+        <div className="flex flex-col justify-center" >  
+          <label htmlFor="lastName" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Last Name</label>          
+          <input id="lastName" type="text"  placeholder="Doe" value={lastName} onChange={(e) => setLastName(e.target.value)} className="input self-center"/>    
+        </div>
       </div>  
       <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
-        <input type="number" placeholder="National Id" value={nationalId} required onChange={(e) => setNationalId(e.target.value)} className="elegant-input"/>
-        <input type="number" placeholder="Phone No" value={phoneNo} required onChange={(e) => setPhoneNo(e.target.value)} className="elegant-input"/>
+        <div className="flex flex-col justify-center" >  
+          <label htmlFor="nationalId" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">National ID</label>          
+          <input id="nationalId" type="number" placeholder="1234567890" value={nationalId} required onChange={(e) => setNationalId(e.target.value)} className="input self-center"/>    
+        </div>
+        <div className="flex flex-col justify-center" >  
+          <label htmlFor="phoneNo" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Phone No</label>          
+          <input id="phoneNo" type="number" placeholder="2547********" value={phoneNo} required onChange={(e) => setPhoneNo(e.target.value)} className="input self-center"/>    
+        </div>
       </div>                        
       <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
-        <input type="email" placeholder="Email Address" value={emailAddress} required onChange={(e) => setEmailAddress(e.target.value)} className="elegant-input"/>
-        <input type="text" placeholder="KCSE mean grade" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="elegant-input"/>
+        <div className="flex flex-col justify-center" >  
+          <label htmlFor="emailAddress" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Email Address</label>          
+          <input id="emailAddress" type="email" placeholder="you@example.com" value={emailAddress} required onChange={(e) => setEmailAddress(e.target.value)} className="input self-center"/>    
+        </div>
+        <div className="flex flex-col justify-center" >  
+          <label htmlFor="meanGrade" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Mean Grade</label>          
+          <input id="meanGrade" type="text" placeholder="B+" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="input self-center"/>    
+        </div>
       </div>  
       {loading ? (
       <div className="flex justify-center mt-1" >

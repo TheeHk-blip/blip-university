@@ -5,6 +5,7 @@ import { siteConfig } from "../config/site";
 import Course from "../models/Course";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Tooltip } from "@mui/material";
 
 
 interface course extends Course{
@@ -77,12 +78,14 @@ export default function Courses() {
                     className="hover:bg-gray-50 transition-colors"
                   >
                     <td className="Table">
-                      <Link
-                        href={"/courses/" + course.courseTitle}
-                        className="hover:underline text-blue-800"
-                      >
-                        {course.courseTitle}
-                      </Link>
+                      <Tooltip title={course.courseTitle} >
+                        <Link
+                          href={"/courses/" + course.courseTitle}
+                          className="hover:underline text-blue-800"
+                        >
+                          {course.courseTitle}
+                        </Link>
+                      </Tooltip>
                     </td>
                     <td className="Table"> {course.courseCode}</td>                                                                                                      
                     <td className="Table">{course.courseDuration}</td>                                          

@@ -42,7 +42,7 @@ export default async function StudentData() {
       <div className="text-center" >
         <span className={title({})}>Student Data</span>
       </div>
-      <div className="flex items-center justify-center" >
+      <div className="flex justify-center" >
         <StudentFilter students={studentData} />
       </div>
     </div>      

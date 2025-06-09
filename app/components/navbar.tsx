@@ -5,12 +5,15 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export  function Navbar() {
   const { data: session } = useSession();
   console.log("session data:", session);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
+  const pathname = usePathname();
 
   const handleClick = () => {
     setOpen(!open);
@@ -29,33 +32,45 @@ export  function Navbar() {
   }
 
   return(
-    <nav className="navbar flex h-20 p-1 items-center flex-row justify-evenly sm:justify-between">
-      <span className="navbrand gap-2 justify-start" >
+    <nav className="navbar">    
+      <div className="navbrand">
         <Image
           alt={""}
           src={"/logo.png"}
-          width={45}
-          height={45}
-          className="ml-5"
+          width={35}
+          height={35}          
         />        
         <span className="text-sm font-bold hidden sm:inline">{siteConfig.name}</span>
-      </span>
-      <ul className="flex flex-row gap-1.5 sm:gap-3 items-center justify-center">
-        {siteConfig.navLinks.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href} className="hover:underline text-blue-700 text-lg font-mono">{link.label}</Link>
-          </li>
-        ))}
-      </ul>
-      <div className="flex justify-end" >
+      </div>
+      <div className="flex flex-row items-center links" >    
+        {siteConfig.navLinks.map((link) => {
+          const isActive = pathname === link.href;
+
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={clsx(
+                "link_text p-1 sm:p-2.5",
+                isActive
+                  ? "text-lg  bg-blue-400 text-black"
+                  : "text-md text-gray-700 hover:bg-gray-200"
+              )}
+            >
+              {link.label}
+            </Link>
+          )
+        })}  
+      </div>
+      <div className="flex items-center">
         { session ? (     
           <div>             
             <Avatar 
-              className="mr-1 cursor-pointer " 
-              sx={{ width: 35, height: 35, color: "white", backgroundColor: "green" }} 
+              className="cursor-pointer " 
+              sx={{ width: 30, height: 30, color: "white", backgroundColor: "green" }} 
               onClick={handleClick} ref={anchorRef}               
             >
-              {getInitials(session.user.name || "User")}
+              <span className="text-sm font-semibold">{getInitials(session.user.name || "User")}</span>
             </Avatar>
             <Menu 
               open={open} 
@@ -97,14 +112,14 @@ export  function Navbar() {
               </MenuItem>
             </Menu>
             <div className="flex flex-col">
-              <span className="text-sm font-light mt-0.5" >
+              <span className="text-[10px] sm:text-[14px] font-medium mr-1" >
                 {session.user.name}
               </span>              
             </div>
           </div>    
         ):(
           <div>           
-            <Avatar className="mr-1 cursor-pointer" onClick={handleClick} ref={anchorRef} />
+            <Avatar className="cursor-pointer" onClick={handleClick} ref={anchorRef} />
             <Menu 
               open={open} 
               onClose={handleClose} 
@@ -135,7 +150,7 @@ export  function Navbar() {
             </Menu>
           </div>         
         )}
-      </div>
+      </div>      
     </nav>
   )
 }

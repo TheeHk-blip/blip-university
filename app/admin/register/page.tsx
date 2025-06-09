@@ -57,39 +57,50 @@ export default function Register() {
     <div className="flex flex-col justify-center items-center" >
       <span className={title({})} >Admin Registration</span>
       <div>
-        <form className="flex flex-col mt-5" onSubmit={handleSubmit} >
-              <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
-                <input type="text" placeholder="First Name" value={firstname} required onChange={(e) => setFirstName(e.target.value)} className="elegant-input"/>
-                <input type="text" placeholder="Last Name" value={lastname} required onChange={(e) => setLastName(e.target.value)} className="elegant-input"/>                
-              </div>                                    
-              <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
-                <input type="email" placeholder="Email Address" value={email} required onChange={(e) => setEmail(e.target.value)} className="elegant-input"/>
-                <input type="password" placeholder="Password" value={password} required onChange={(e) => setPassword(e.target.value)} className="elegant-input"/>
-              </div>  
-              {loading ? (
-              <div className="flex justify-center mt-1" >
-                <button className="login spinner text-center border-blue-800" type="submit" disabled>
-                  <span></span>      
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
-              </div>  
-              ):(
-              <div className="flex flex-col items-center justify-center mt-1" >
-                <div>
-                  <button className="elegant-button text-center" type="submit">Register</button>               
-                </div>    
-                <span className="text-md text-gray-500 font-mono">Delete your account?</span>
-                <Link href="/admin/deleteAccount" className="elegant-link  ">Delete</Link>
-              </div>
-              )}                                  
-            </form>
-        
+        <form className="card flex flex-col mt-5" onSubmit={handleSubmit} >
+          <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
+            <div className="items-center justify-center" >              
+              <label htmlFor="firstname" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">User ID</label>          
+              <input id="firstname" type="text"  placeholder="John" value={firstname} onChange={(e) => setFirstName(e.target.value)} className="input"/>                      
+            </div>
+            <div className="items-center justify-center" >
+              <label htmlFor="lastname" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Last Name</label>
+              <input id="lastname" type="text" placeholder="Doe" value={lastname} onChange={(e) => setLastName(e.target.value)} className="input"/>
+            </div>               
+          </div>                                    
+          <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2" >
+            <div className="items-center justify-center" >
+              <label htmlFor="email" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Email</label>
+              <input id="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="input"/>
+            </div>
+            <div className="items-center justify-center" >
+              <label htmlFor="password" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Password</label>
+              <input id="password" type="password" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} className="input"/>
+            </div>
+          </div>  
+            {loading ? (
+            <div className="flex justify-center mt-1" >
+              <button className="login spinner text-center border-blue-800" type="submit" disabled>
+                <span></span>      
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>  
+            ):(
+            <div className="flex flex-col items-center justify-center mt-1" >
+              <div className="mb-2" >
+                <button className="elegant-button text-center" type="submit">Register</button>               
+              </div>    
+              <span className="text-md text-gray-500 font-mono">Delete your account?</span>
+              <Link href="/admin/deleteAccount" className="elegant-link mb-2 ">Delete</Link>
+            </div>
+            )}                                  
+            </form>        
             <Snackbar
               open={alertOpen}
               autoHideDuration={20000}

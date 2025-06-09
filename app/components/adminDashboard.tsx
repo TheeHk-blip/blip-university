@@ -68,11 +68,11 @@ export default async function AdminDashboard() {
   }
 
   return (
-    <div className="flex flex-row  sm:flex-col justify-evenly " >
+    <div className="flex flex-col justify-evenly " >
       <div className="flex justify-center text-center" >
         <p className={title({})} >Welcome {session.user.name}</p>
       </div>
-      <div className="flex flex-row justify-evenly mt-2.5 " >      
+      <div className="flex flex-col sm:flex-row justify-evenly mt-2.5 " >      
         <div className="flex-col text-black card" >
           <span className={title({size: "sm"})} >Students</span>
           <div className="flex-col" >            
@@ -84,7 +84,7 @@ export default async function AdminDashboard() {
               <span className="text-sm ml-2.5 text-black">New Students:</span>
               <span>{newStudents.length}</span>
               <div className="m-1" >
-                <button className="neu-button">
+                <button className="rounded-md bg-green-300 p-1.5">
                   <Link href="/admin/students" > View More</Link>
                   <ArrowRight/>
                 </button>
@@ -99,8 +99,8 @@ export default async function AdminDashboard() {
               <span className="text-sm ml-2.5 text-black">Total Lecturers:</span>
               <span>{totalLecturers}</span>
               <div className="m-1" >
-                <button className="neu-button">
-                  <Link href="/admin/lecturers" > View More</Link>
+                <button className="rounded-md bg-green-300 p-1.5">
+                  <Link href="/admin/lecturers" className="" > View More</Link>
                   <ArrowRight/>
                 </button>
               </div>
@@ -114,7 +114,7 @@ export default async function AdminDashboard() {
               <span className="text-sm ml-2.5 text-black">Total Courses:</span>
               <span>{totalCourses}</span>
               <div className="m-1" >
-                <button className="neu-button">
+                <button className="rounded-md bg-green-300 p-1.5">
                   <Link href="/admin/courses" > View More</Link>
                   <ArrowRight/>
                 </button>

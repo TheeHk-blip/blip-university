@@ -1,5 +1,5 @@
 "use client"
-
+import '@/app/globals.css';
 import { useState } from "react";
 import { title } from "./primitives";
 import { signIn } from "next-auth/react";
@@ -37,21 +37,25 @@ export default function Login() {
           <h1 className={title({})}>WELCOME</h1>
         </div>
         <div className="flex flex-col items-center gap-1.5" >
-            <div>
-              <p>
-                Please Login to access the Student Portal
-              </p>
+            <div>              
               <p className="text-sm text-gray-500 ml-2">
                 Note:<br/>
-                If you are a new student head over to the Courses tab and Apply for a Course .<br/>
-                Your password is your phone number.<br/>
+                If you are a new student head over to the Courses tab and Apply for a Course .<br/>                
                 Your student ID takes the form of CourseCode/year of admission/registration number.<br/>
                 Example: BCS/2025/1.
               </p>          
-              <form onSubmit={handleSubmit} >
-                <div className="flex flex-col items-center" >
-                  <input type="text" placeholder="User Id" value={userId} onChange={(e) => setUserId(e.target.value)} className="elegant-input"/>                            
-                  <input type="password" placeholder="Password" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="elegant-input"/>
+              <form onSubmit={handleSubmit} className='card' >
+                <div className="flex flex-col" >   
+                  <p className="text-base text-center text-gray-500 font-semibold" >LogIn to Continue</p>   
+                  <div className="items-center justify-center" >  
+                    <label htmlFor="userId" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">User ID</label>          
+                    <input id="userId" type="text"  placeholder="BCS/2025/1" value={userId} onChange={(e) => setUserId(e.target.value)} className="input"/>    
+                  </div>                        
+                  <div className="items-center justify-center" >
+                    <label htmlFor="phoneNo" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Password</label>
+                    <input id='phoneNo' type="password" placeholder="********" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="input"/>
+                  </div>
+                  
                 </div>
                 {errorMessage && (
                   <div className="text-red-500 flex text-center items-center justify-center text-sm mt-2">
@@ -72,7 +76,7 @@ export default function Login() {
                     </div>
                   ):(          
                     <button className="button-login flex items-center justify-center text-center" type="submit" disabled={loading} >                  
-                      <span>Login</span>                   
+                      <span>LogIn</span>                   
                     </button>
                   )}             
                 </div>

@@ -54,8 +54,14 @@ export default function DeleteAccount() {
       <div className="card" >        
         <div className="card-body" >
           <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center" >
-            <input type="text" placeholder="adminId" value={adminId} onChange={(e) => setAdminId(e.target.value)} className="elegant-input" />
-            <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} className="elegant-input" />    
+            <div className="items-center justify-center" >
+              <label htmlFor="adminId" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Password</label>
+              <input id="adminId" type="text" placeholder="adminID" value={adminId} onChange={(e) => setAdminId(e.target.value)} className="input"/>
+            </div>            
+            <div className="items-center justify-center" >
+              <label htmlFor="password" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Password</label>
+              <input id="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="input"/>
+            </div>  
             <FormControlLabel required control={<Checkbox sx={{color: green[800], '&.Mui-checked': { color: red[600] }}} />} label="Action cannot be undone" />  
             <button className="btn-53 flex justify-center items-center mb-2">     
               <DeleteForever />   
