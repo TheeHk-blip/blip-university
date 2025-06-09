@@ -47,13 +47,13 @@ export default function Login() {
               <form onSubmit={handleSubmit} className='card' >
                 <div className="flex flex-col" >   
                   <p className="text-base text-center text-gray-500 font-semibold" >LogIn to Continue</p>   
-                  <div className="items-center justify-center" >  
+                  <div className="justify-center" >  
                     <label htmlFor="userId" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">User ID</label>          
-                    <input id="userId" type="text"  placeholder="BCS/2025/1" value={userId} onChange={(e) => setUserId(e.target.value)} className="input"/>    
+                    <input id="userId" type="text"  placeholder="BCS/2025/1" value={userId} onChange={(e) => setUserId(e.target.value)} className="input self-center"/>    
                   </div>                        
-                  <div className="items-center justify-center" >
+                  <div className="justify-center" >
                     <label htmlFor="phoneNo" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">Password</label>
-                    <input id='phoneNo' type="password" placeholder="********" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="input"/>
+                    <input id='phoneNo' type="password" placeholder="********" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} className="input self-center"/>
                   </div>
                   
                 </div>
