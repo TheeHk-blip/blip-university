@@ -79,17 +79,25 @@ export default function Register() {
             </div>
           </div>  
             {loading ? (
-            <div className="flex justify-center mt-1" >
-              <button className="login spinner text-center border-blue-800" type="submit" disabled>
-                <span></span>      
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
+            <div className="flex justify-center mt-1" > 
+              <div className="loader">
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+                <div className="circle">
+                  <div className="dot"></div>
+                  <div className="outline"></div>
+                </div>
+              </div>
             </div>  
             ):(
             <div className="flex flex-col items-center justify-center mt-1" >

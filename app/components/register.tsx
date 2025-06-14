@@ -26,6 +26,18 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
     const [alertMessage, setAlertMessage] = useState("");
     const [alertSeverity, setAlertSeverity] = useState<"success" | "error">("success");
 
+    function getApiUrl() {
+    if (process.env.NODE_ENV === "development") {
+      // Use localhost if running locally, otherwise use devtunnel
+      if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+        return "http://localhost:3000/api/student/register?courseTitle=" + courseTitle;
+      }
+      return "https://4hb0xq12-3000.euw.devtunnels.ms/api/student/register?courseTitle=" + courseTitle;
+    }
+    // Production
+    return `https://blip-university.vercel.app/api/student/register?courseTitle=${courseTitle}`;
+  }
+
     const handleAlertClose = () => {
       setAlertOpen(false);
     };
@@ -69,10 +81,7 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
         formData.append("phoneNo", `${phoneNo}`);
         formData.append("emailAddress", emailAddress);
         formData.append("meanGrade", meanGrade);
-        const response = await fetch(
-          process.env.NODE_ENV == "production" 
-          ? `https://blip-university.vercel.app/api/student/register?courseTitle=${courseTitle}`
-          :`http://localhost:3000/api/student/register?courseTitle=${courseTitle}`,{
+        const response = await fetch( getApiUrl() ,{
           method: "POST",
           body: formData,
         });
@@ -137,19 +146,25 @@ export default function Register({ minRequirements, courseTitle }: RegisterProps
           <input id="meanGrade" type="text" placeholder="B+" value={meanGrade} required onChange={(e) => setMeanGrade(e.target.value)} className="input self-center"/>    
         </div>
       </div>  
-      {loading ? (
-      <div className="flex justify-center mt-1" >
-        <button className="login spinner text-center border-blue-800" type="submit" disabled>
-          <span></span>      
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>  
+      {loading ? (       
+      <div className="loader">
+        <div className="circle">
+          <div className="dot"></div>
+          <div className="outline"></div>
+        </div>
+        <div className="circle">
+          <div className="dot"></div>
+          <div className="outline"></div>
+        </div>
+        <div className="circle">
+          <div className="dot"></div>
+          <div className="outline"></div>
+        </div>
+        <div className="circle">
+          <div className="dot"></div>
+          <div className="outline"></div>
+        </div>
+      </div>
       ):(
       <div className="flex justify-center mt-1" >
         <button className="elegant-button text-center" type="submit">Apply</button>

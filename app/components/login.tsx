@@ -46,7 +46,7 @@ export default function Login() {
               </p>          
               <form onSubmit={handleSubmit} className='card' >
                 <div className="flex flex-col" >   
-                  <p className="text-base text-center text-gray-500 font-semibold" >LogIn to Continue</p>   
+                  <p className="text-[20px] m-1 text-center text-gray-500 font-semibold" >Login to Continue</p>   
                   <div className="flex flex-col justify-center" >  
                     <label htmlFor="userId" className="text-left ml-3.5 text-sm font-medium text-gray-600 mb-0.5">User ID</label>          
                     <input id="userId" type="text"  placeholder="BCS/2025/1" value={userId} onChange={(e) => setUserId(e.target.value)} className="input self-center"/>    
@@ -63,17 +63,29 @@ export default function Login() {
                   </div>
                 )}
                 <div className="flex justify-center text-center items-center mt-1">   
-                 {loading ? (
-                    <div className="spinner">
-                      <span></span>      
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
+                 {loading ? (                   
+                  <div className="loader">
+                    <div className="circle">
+                      <div className="dot"></div>
+                      <div className="outline"></div>
                     </div>
+                    <div className="circle">
+                      <div className="dot"></div>
+                      <div className="outline"></div>
+                    </div>
+                    <div className="circle">
+                      <div className="dot"></div>
+                      <div className="outline"></div>
+                    </div>
+                    <div className="circle">
+                      <div className="dot"></div>
+                      <div className="outline"></div>
+                    </div>
+                    <div className="circle">
+                      <div className="dot"></div>
+                      <div className="outline"></div>
+                    </div>
+                  </div>
                   ):(          
                     <button className="button-login flex items-center justify-center text-center" type="submit" disabled={loading} >                  
                       <span>LogIn</span>                   

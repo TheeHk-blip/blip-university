@@ -11,17 +11,25 @@ export default function Fees() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  function getUnitsApiUrl(studentId: string) {
+    if (process.env.NODE_ENV === "development") {
+      // Use localhost if running locally, otherwise use devtunnel
+      if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+        return `http://localhost:3000/api/student/fees?userId=${studentId}`;
+      }
+      return `https://4hb0xq12-3000.euw.devtunnels.ms/api/student/fees?userId=${studentId}`;
+    }
+    // Production
+    return `https://blip-university.vercel.app/api/student/fees?userId=${studentId}`;
+  }
+
   useEffect(() => {
     const fetchFees = async () => {
       setLoading(true);
       try {
         const studentId = session?.user.userId;
         
-        const response = await fetch(
-          process.env.NODE_ENV == "development"
-            ? "http://localhost:3000/api/student/fees?userId=" + studentId
-            : "https://blip-university.vercel.app/api/student/fees?userId=" + studentId,);
-
+        const response = await fetch(getUnitsApiUrl(studentId || ""));
             if (response.ok) {
               const data = await response.json();
               setFees(data.courseFee);
@@ -41,7 +49,29 @@ export default function Fees() {
   },[session?.user.userId]);
 
   if (loading) {
-    return <div className="text-center w-full">Loading Fees...</div>;
+    return (
+      <div className="flex flex-col justify-center items-center" >
+        <div className="loader">
+          <div className="circle">
+            <div className="dot"></div>
+            <div className="outline"></div>
+          </div>
+          <div className="circle">
+            <div className="dot"></div>
+            <div className="outline"></div>
+          </div>
+          <div className="circle">
+            <div className="dot"></div>
+            <div className="outline"></div>
+          </div>
+          <div className="circle">
+            <div className="dot"></div>
+            <div className="outline"></div>
+          </div>
+        </div>
+        <span>Computing fees</span>
+      </div>
+    )
   }
 
   if (error) {

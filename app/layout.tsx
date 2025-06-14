@@ -36,7 +36,7 @@ export default function RootLayout({
       <Providers>   
         <div className="flex flex-col p-0.5 min-h-screen">
           <Navbar/>     
-          <main className="container pt-5 pl-1.5 z-auto" >
+          <main className="container pt-5 z-auto" >
             {children} 
             <SpeedInsights />
             <Analytics />
