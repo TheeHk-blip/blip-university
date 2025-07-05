@@ -11,7 +11,7 @@ export default function CourseForm({course}:{course: Course}) {
   const [courseDuration, setCourseDuration] = useState(course?.courseDuration || "");
   const [courseFee, setCourseFee] = useState(course?.courseFee || "");
   const [courseDetails, setCourseDetails] = useState(course?.courseDetails || "");
-  const [courseUnits, setCourseUnits] = useState(course?.courseUnits || "");
+  const [courseUnits] = useState(course?.courseUnits || "");
   const [message, setMessage] = useState("");
 
   const router = useRouter();
@@ -103,15 +103,7 @@ export default function CourseForm({course}:{course: Course}) {
               required
               className=""
             />
-          </div>
-          <div>
-            <label htmlFor="Course Units" className="absolute ml-2.5 mt-1 text-black" >Course Units:</label>
-            <textarea              
-              value={courseUnits}
-              onChange={(e) => setCourseUnits(e.target.value)}
-              required              
-            />
-          </div>
+          </div>          
           <div className="flex justify-center items-center" >
             <button className="new-button">
               {course ? "Update Course" : "Create Course"}
