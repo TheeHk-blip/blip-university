@@ -1,4 +1,4 @@
-import { title } from "@/app/components/primitives";
+/*import { title } from "@/app/components/primitives";
 import Course from "@/app/models/Course";
 import dbConnect from "@/db/courseConnect";
 import { Create, EditAttributesTwoTone } from "@mui/icons-material";
@@ -75,4 +75,4 @@ export default async function Courses() {
       </div>
     </div>
   )  
-}
+}*/
