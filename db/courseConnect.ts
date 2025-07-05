@@ -22,6 +22,6 @@ export default async function dbConnect() {
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-    throw new Error("Please Check Your Connection");
+    throw new Error("Internal Server Error");
   }
 }
