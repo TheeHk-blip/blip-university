@@ -25,7 +25,7 @@ export const GET = async () => {
     const course = await Course.findOne({ courseCode: student.courseCode }).exec();
 
     if (!course) {
-      return NextResponse.json({ error: "Course not found" }, { status: 404 });
+      return NextResponse.json({error: "No course found"}, {status: 500});
     }
 
     return NextResponse.json({ courseUnits: course.courseUnits, courseCode: course.courseCode });

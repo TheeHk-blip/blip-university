@@ -1,5 +1,10 @@
 import mongoose, {Document} from "mongoose";
 
+export interface IStudent {
+  studentId: string;
+  registeredUnits: string[];
+}
+
 interface Student extends Document {
   firstName: string,
   lastName: string,
@@ -9,12 +14,15 @@ interface Student extends Document {
   meanGrade: string,
   courseCode: string,
   year: number,
+  currentYear: number,
+  currentSemester: number,
+  registeredUnits: string[],
   studentId: string,
   createdAt?: Date; // Automatically added by timestamps
   updatedAt?: Date; // Automatically added by timestamps
 }
 
-const studentScheme = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true
@@ -50,6 +58,20 @@ const studentScheme = new mongoose.Schema({
     type: Number,
     required: true
   },
+  currentYear: {
+    type: Number,
+    required: true,
+    default: 1
+  },
+  currentSemester: {
+    type: Number,
+    required: true,
+    default: 1
+  },
+  registeredUnits: {
+    type: [String],
+    default: []
+  },
   studentId: {
     type: String,
     required: true,
@@ -57,6 +79,6 @@ const studentScheme = new mongoose.Schema({
   },
 }, {timestamps: true});
 
-const Student = mongoose.models.Students || mongoose.model("Students", studentScheme)
+const Student = mongoose.models.Students || mongoose.model("Students", studentSchema)
 
 export default Student;

@@ -25,7 +25,7 @@ export const siteConfig = {
       label: "Fees"
     },
     {
-      href: "/registration",
+      href: "/units",
       label: "Unit-Registration"
     },
     {

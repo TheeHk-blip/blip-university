@@ -26,7 +26,7 @@ export default async function CourseInfo({ params }: { params: Promise<{ courseI
 
   return (
     <div className="flex flex-col sm:flex-wrap" >
-      <h1 className={title({size: "sm"})}>{courseInfo} ({selectedCourse?.courseCode})</h1>
+      <h1 className={title({size: "sm"})}>{courseInfo}</h1>
       <div className="flex flex-col ml-2.5">  
         <p className="whitespace-pre-line" >{selectedCourse ? selectedCourse.courseDetails: ""}</p> 
         <div className="flex flex-col mt-1.5 justify-center items-center " >

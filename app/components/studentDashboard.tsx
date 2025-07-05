@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 
 import { siteConfig } from "../config/site";
 import Link from "next/link";
+import { title } from "./primitives";
+
+type Unit = { code: string; title: string };
+type CourseUnitBlock = { year: number; semester: number; units: Unit[] };
 
 export default function StudentDashboard() {
   const { data: session } = useSession();
 
-  const [units, setUnits] = useState("");
+  const [units, setUnits] = useState<CourseUnitBlock[]>([]);
   const [loading, setLoading] = useState(true);
 
   function getUnitsApiUrl(studentId: string) {
@@ -35,11 +39,15 @@ export default function StudentDashboard() {
 
         const response = await fetch(getUnitsApiUrl(studentId));
         if (response.ok) {
-          const data = await response.json();          
-          setUnits(data.courseUnits);
+          const data = await response.json();  
+          /*console.log("Fetched units data:", data);
+          console.log("Course Code:", data.courseCode);
+          console.log("Course Units:", data.courseUnits);*/     
+          setUnits(Array.isArray(data.courseUnits) ? data.courseUnits : []);
         } else {
           const errorData = await response.json();
           console.error("Error fetching units:", errorData.error);
+          setUnits([]);
         }
       }  catch (error) {
         console.error("Error fetching units:", error);
@@ -76,67 +84,39 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
+      <h1 className={title()}>Student Dashboard</h1>
+      <div className="flex flex-row items-center mt-1.5" >
+        {siteConfig.dashboardLinks.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="text-blue-500 hover:underline mx-1 gap-5 font-semibold"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
       <div>
-        <nav className="dashboard rounded-md bg-gray-200 p-1 flex m-1 h-auto items-center flex-row gap-3 justify-between">
-          {siteConfig.dashboardLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="flex hover:underline text-blue-700 text-lg font-mono" >{link.label}</Link>
-          ))}
-        </nav>      
-      </div>
-      <div className="mt-4">
-        {formatCourseUnits(units)}      
-      </div>
-    </div>
-  );
-}
-
-function formatCourseUnits(raw: string) {
-  if(!raw) return <div>No course units found.</div>;
-
-  const lines = raw.split('\n').map( line => line.trim()).filter(Boolean);
-
-  const result: Record<string, Record<string, string[]>> ={};
-
-  let currentYear = "";
-  let currentSemester = "";
-
-  for (const line of lines) {
-    const yearSemesterMatch = line.match(/YEAR\s+(\d+)\s+SEMESTER\s+(\d+)/i);
-    const isUnitLine = /^[A-Z]{2,4}\s?\d{3}\s+.+/.test(line);
-
-    if (yearSemesterMatch) {
-      const year = `Year ${yearSemesterMatch[1]}`;
-      const semester = `Semester ${yearSemesterMatch[2]}`;
-      currentYear = year;
-      currentSemester = semester;
-
-      if (!result[year]) result[year] = {};
-      if (!result[year][semester]) result[year][semester] = [];
-    } else if (isUnitLine && currentYear && currentSemester) {
-      result [currentYear][currentSemester].push(line);
-    }
-  }
-
-  return (
-    <div className="flex flex-col sm:[flex-row flex-wrap grid-rows-2 max-w-[320px]] ">
-      {Object.entries(result).map(([year, semesters]) => (
-        <div key={year} className="units_card" >
-          <h3 className="font-semibold" >{year.toUpperCase()}</h3>
-          {Object.entries(semesters).map(([semester, units]) => (
-            <div key={semester}>
-              <h4 className="font-medium text-gray-600 max-w-fit m-1 rounded-lg p-1 bg-gray-300" >{semester}</h4>
-              <ul>
-                {units.map((unit, index) => (
-                  <li key={index} className="text-sm" >{unit.toUpperCase()}</li>
+        {Array.isArray(units) && units.length === 0 ? (
+          <p>No units found.</p>
+        ) : (          
+          units.map((block, idx) => (
+            <div key={idx} className="mb-4 units_card">
+              <h3 className="font-semibold rounded-xl shadow bg-gray-300 p-2">
+                Year {block.year} - Semester {block.semester}                
+              </h3>
+              <ul className="list-disc ml-6">
+                {block.units.map((unit, i) => (
+                  <li key={i}>
+                    <span className="font-mono">{unit.code}</span>: {unit.title}
+                  </li>
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
-      ))}
+          ))
+        )}
+      </div>
     </div>
-  )
-
-
+  );
 }

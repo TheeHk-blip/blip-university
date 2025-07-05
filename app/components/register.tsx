@@ -10,7 +10,7 @@ interface RegisterProps {
 }
 
 export default function Register({ minRequirements, courseTitle }: RegisterProps) {
-  console.log("minRequirements", minRequirements);
+    //console.log("minRequirements", minRequirements);
     const router = useRouter();
     
     const [firstName,setFirstName] = useState("");
