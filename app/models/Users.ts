@@ -9,7 +9,7 @@ interface User extends Document {
   studentRef?: mongoose.Schema.Types.ObjectId; // Optional reference to Student model
 }
 
-const userScheme = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
@@ -39,6 +39,6 @@ const userScheme = new mongoose.Schema({
   },
 });
 
-const User = mongoose.models.Users || mongoose.model("Users", userScheme);
+const User = mongoose.models.Users || mongoose.model("Users", userSchema);
 
 export default User;
